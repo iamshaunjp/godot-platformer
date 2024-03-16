@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://e6fxos7n27ff"]
+
+[ext_resource type="Texture2D" uid="uid://dvsuqtlbf04vl" path="res://graphics/player/basic/idle.png" id="1_shnsy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1ex4"]
+radius = 4.0
+height = 14.0
+
+[node name="Player" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_shnsy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_g1ex4")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+position_smoothing_enabled = true

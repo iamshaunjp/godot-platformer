@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=3 uid="uid://e6fxos7n27ff"]
+
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_onwjt"]
+[ext_resource type="Texture2D" uid="uid://dvsuqtlbf04vl" path="res://graphics/player/basic/idle.png" id="1_shnsy"]
+[ext_resource type="Texture2D" uid="uid://cweuo38ehcsyj" path="res://graphics/player/gun/idle.png" id="3_kk1t7"]
+[ext_resource type="Texture2D" uid="uid://baknl57csjt2o" path="res://graphics/player/basic/walk.png" id="3_r44ju"]
+[ext_resource type="Texture2D" uid="uid://c5seouewswih6" path="res://graphics/player/gun/walk.png" id="5_agfpn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1ex4"]
+radius = 4.0
+height = 14.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_10sls"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_shnsy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_kk1t7")
+}],
+"loop": true,
+"name": &"idle_gun",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_r44ju")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_agfpn")
+}],
+"loop": true,
+"name": &"jump_gun",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_shnsy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_r44ju")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_kk1t7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_agfpn")
+}],
+"loop": true,
+"name": &"walk_gun",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_onwjt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_g1ex4")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+position_smoothing_enabled = true
+position_smoothing_speed = 12.0
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="CooldownTimer" type="Timer" parent="Timers"]
+wait_time = 0.6
+one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_10sls")
+animation = &"walk_gun"
+autoplay = "idle"
+
+[connection signal="timeout" from="Timers/CooldownTimer" to="." method="_on_cooldown_timer_timeout"]

@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://mwbtq5uc6jg1"]
+
+[ext_resource type="Script" path="res://scenes/ui.gd" id="1_2wosb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnupx"]
+bg_color = Color(0.109804, 0.109804, 0.109804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebm3g"]
+bg_color = Color(0.858824, 0.203922, 0.223529, 1)
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_2wosb")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 10
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer"]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bnupx")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ebm3g")
+value = 30.0
+show_percentage = false

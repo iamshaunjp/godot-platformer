@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://bm80wfphpbole"]
+
+[ext_resource type="Script" path="res://scenes/worm.gd" id="1_mwfbe"]
+[ext_resource type="Texture2D" uid="uid://b8mj4x35giiuo" path="res://graphics/Enemies/worm/1.png" id="1_rjmjl"]
+[ext_resource type="Shader" path="res://scenes/flicker.gdshader" id="2_npata"]
+[ext_resource type="Texture2D" uid="uid://fnu2hxu21uiu" path="res://graphics/Enemies/worm/0.png" id="2_p2jwi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vp3dd"]
+shader = ExtResource("2_npata")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/amount = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_80wru"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_p2jwi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_rjmjl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_klj1a"]
+radius = 3.0
+height = 12.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2x8gc"]
+size = Vector2(14, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_il8vo"]
+size = Vector2(2, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5omto"]
+size = Vector2(2, 2)
+
+[node name="Worm" type="Area2D"]
+collision_layer = 4
+collision_mask = 18
+script = ExtResource("1_mwfbe")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_vp3dd")
+sprite_frames = SubResource("SpriteFrames_80wru")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_klj1a")
+
+[node name="BorderArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BorderArea"]
+shape = SubResource("RectangleShape2D_2x8gc")
+
+[node name="RightCliffArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightCliffArea"]
+position = Vector2(7, 5)
+shape = SubResource("RectangleShape2D_il8vo")
+
+[node name="LeftCliffArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftCliffArea"]
+position = Vector2(-7, 5)
+shape = SubResource("RectangleShape2D_5omto")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="BorderArea" to="." method="_on_border_area_body_entered"]
+[connection signal="body_exited" from="RightCliffArea" to="." method="_on_right_cliff_area_body_exited"]
+[connection signal="body_exited" from="LeftCliffArea" to="." method="_on_left_cliff_area_body_exited"]

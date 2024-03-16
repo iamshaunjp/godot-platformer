@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://c25ylml1emb4a"]
+
+[ext_resource type="PackedScene" uid="uid://tghlpjn5bgfl" path="res://scenes/level.tscn" id="1_ah2c4"]
+
+[node name="Game" type="Node"]
+
+[node name="BG" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="BG"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.984314, 0.870588, 0.8, 1)
+
+[node name="Level" parent="." instance=ExtResource("1_ah2c4")]
